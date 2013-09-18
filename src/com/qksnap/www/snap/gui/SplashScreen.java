@@ -85,6 +85,7 @@ public class SplashScreen extends JWindow {
 	public MainFrame getMainFrame(){
 		return mainframe;
 	}
+	
 	public UserSettings usersettings;
 	
 	public UserSettings getUserSettings(){
@@ -169,7 +170,7 @@ public class SplashScreen extends JWindow {
 		// Check for Update
 		Logger.writeLog(Level.INFORMATION, "Preparing to check for update.");
 		drawText(0,"Preparing to check for updates.");
-		new Updater();
+		//new Updater();
 		// Load sqlite settings
 		Logger.writeLog(Level.INFORMATION, "Preparing to load local settings.");
 		drawText(0,"Preparing to load local settings.");

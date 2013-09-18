@@ -75,7 +75,7 @@ public class SelectGlassPane extends JPanel {
 	protected void paintComponent(Graphics g) {
 		 super.paintComponent(g);
 		 // Set Window to 50% Opacity 
-		AWTUtilities.setWindowOpacity(SplashScreen.getSingleton().getMainFrame().getNRFrame(), 0.5f);
+		AWTUtilities.setWindowOpacity(GlassFrame.getInstance(), 0.5f);
 		Graphics2D g2 = (Graphics2D) g.create();
 		Area area = new Area();
 		AlphaComposite old = (AlphaComposite) g2.getComposite();

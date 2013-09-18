@@ -14,7 +14,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.qksnap.www.snap.gui.RectGlassPane;
+import com.qksnap.www.snap.gui.GlassFrame;
+import com.qksnap.www.snap.gui.ImageOverlayGlassPane;
 import com.qksnap.www.snap.gui.SelectGlassPane;
 import com.qksnap.www.snap.gui.SplashScreen;
 import com.sun.awt.AWTUtilities;
@@ -32,14 +33,14 @@ public class AreaDragListener extends MouseAdapter {
 		super.mousePressed(e);
 		// our start coords
 		if(!this.isRect){
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().setStart(e.getPoint());
+			GlassFrame.getInstance().getSelectGlassPane().setStart(e.getPoint());
 			// We are drawing the rectangle
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().setDrawing(true);
+			GlassFrame.getInstance().getSelectGlassPane().setDrawing(true);
 			return;
 		} 
-		SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().setStart(e.getPoint());
+		GlassFrame.getInstance().getSnapGlassPane().setStart(e.getPoint());
 		// We are drawing the rectangle
-		SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().setDrawing(true);
+		GlassFrame.getInstance().getSnapGlassPane().setDrawing(true);
 	}
 
 	@Override
@@ -51,42 +52,43 @@ public class AreaDragListener extends MouseAdapter {
 		}
 		if(this.isRect){
 			// set the end point to our mouse point
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().setFinish(e.getPoint());
+			GlassFrame.getInstance().getSnapGlassPane().setFinish(e.getPoint());
 			// calculate the size of the selection rectangle
-			int x = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.x, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.x);
-			int y = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.y, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.y);
-			int width = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.x - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.x);
-			int height = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.y - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.y);
+			int x = Math.min(GlassFrame.getInstance().getSnapGlassPane().start.x, GlassFrame.getInstance().getSnapGlassPane().down.x);
+			int y = Math.min(GlassFrame.getInstance().getSnapGlassPane().start.y, GlassFrame.getInstance().getSnapGlassPane().down.y);
+			int width = Math.abs(GlassFrame.getInstance().getSnapGlassPane().start.x - GlassFrame.getInstance().getSnapGlassPane().down.x);
+			int height = Math.abs(GlassFrame.getInstance().getSnapGlassPane().start.y - GlassFrame.getInstance().getSnapGlassPane().down.y);
 			// draw the rectangle
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().setRect(new Rectangle2D.Double(x, y, width, height));
+			GlassFrame.getInstance().getSnapGlassPane().setRect(new Rectangle2D.Double(x, y, width, height));
 			// repaint the panel every drag
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().repaint();
+			GlassFrame.getInstance().getSnapGlassPane().repaint();
 		} else {
 			// set the end point to our mouse point
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().setFinish(e.getPoint());
+			GlassFrame.getInstance().getSelectGlassPane().setFinish(e.getPoint());
 			// calculate the size of the selection rectangle
-			int x = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.x, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.x);
-			int y = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.y, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.y);
-			int width = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.x - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.x);
-			int height = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.y - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.y);
+			int x = Math.min(GlassFrame.getInstance().getSelectGlassPane().start.x, GlassFrame.getInstance().getSelectGlassPane().down.x);
+			int y = Math.min(GlassFrame.getInstance().getSelectGlassPane().start.y, GlassFrame.getInstance().getSelectGlassPane().down.y);
+			int width = Math.abs(GlassFrame.getInstance().getSelectGlassPane().start.x - GlassFrame.getInstance().getSelectGlassPane().down.x);
+			int height = Math.abs(GlassFrame.getInstance().getSelectGlassPane().start.y - GlassFrame.getInstance().getSelectGlassPane().down.y);
 			// draw the rectangle
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().setRect(new Rectangle2D.Double(x, y, width, height));
+			GlassFrame.getInstance().getSelectGlassPane().setRect(new Rectangle2D.Double(x, y, width, height));
 			// repaint the panel every drag
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().repaint();
+			GlassFrame.getInstance().getSelectGlassPane().repaint();
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		//System.out.println(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane());
+		//System.out.println(GlassFrame.getInstance().getSnapGlassPane());
 		super.mouseReleased(e);
 		if(!this.isRect){
-			int x = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.x, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.x);
-			int y = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.y, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.y);
-			int width = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.x - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.x);
-			int height = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().start.y - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().down.y);
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().setVisible(false);
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().repaint();
+			
+			int x = Math.min(GlassFrame.getInstance().getSelectGlassPane().start.x, GlassFrame.getInstance().getSelectGlassPane().down.x);
+			int y = Math.min(GlassFrame.getInstance().getSelectGlassPane().start.y, GlassFrame.getInstance().getSelectGlassPane().down.y);
+			int width = Math.abs(GlassFrame.getInstance().getSelectGlassPane().start.x - GlassFrame.getInstance().getSelectGlassPane().down.x);
+			int height = Math.abs(GlassFrame.getInstance().getSelectGlassPane().start.y - GlassFrame.getInstance().getSelectGlassPane().down.y);
+			GlassFrame.getInstance().setVisible(false);
+			GlassFrame.getInstance().getSelectGlassPane().repaint();
 			try {
 				Thread.sleep(500); // sleep for half a second
 			} catch (InterruptedException e1) {
@@ -94,28 +96,29 @@ public class AreaDragListener extends MouseAdapter {
 			}
 			//select our location 
 			SplashScreen.getSingleton().getMainFrame().setRect(new Rectangle(x, y+20, width+1, height+1));
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().dispose();
+			GlassFrame.getInstance().dispose();
 			SplashScreen.getSingleton().getMainFrame().getTrayIcon().displayMessage("QwikSnap", "Your pre-defined snap region has been saved.\nPress ("+SplashScreen.getSingleton().getUserSettings().getSnapHK() +") to take a picture.", TrayIcon.MessageType.INFO);
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSelectGlassPane().setRect(null);
+			GlassFrame.getInstance().getSelectGlassPane().setRect(null);
 			SplashScreen.getSingleton().getMainFrame().setIsDrawingAlready(false);
 	
 		} else {
-			int x = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.x, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.x);
-			int y = Math.min(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.y, SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.y);
-			int width = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.x - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.x);
-			int height = Math.abs(SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().start.y - SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().down.y);
+			
+			int x = Math.min(GlassFrame.getInstance().getSnapGlassPane().start.x, GlassFrame.getInstance().getSnapGlassPane().down.x);
+			int y = Math.min(GlassFrame.getInstance().getSnapGlassPane().start.y, GlassFrame.getInstance().getSnapGlassPane().down.y);
+			int width = Math.abs(GlassFrame.getInstance().getSnapGlassPane().start.x - GlassFrame.getInstance().getSnapGlassPane().down.x);
+			int height = Math.abs(GlassFrame.getInstance().getSnapGlassPane().start.y - GlassFrame.getInstance().getSnapGlassPane().down.y);
 			SplashScreen.getSingleton().getMainFrame().sendRectScreen(new Rectangle(x, y, width, height));
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().repaint();
+			GlassFrame.getInstance().getSnapGlassPane().repaint();
 			try {
 				Thread.sleep(500); // sleep for half a second
 			} catch (InterruptedException e1) {
 			}
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().needUpdate = true;
-			AWTUtilities.setWindowOpaque(SplashScreen.getSingleton().getMainFrame().getNRFrame(), false);
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().setRect(null);
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().dispose();
+			GlassFrame.getInstance().getSnapGlassPane().needUpdate = true;
+			AWTUtilities.setWindowOpaque(GlassFrame.getInstance(), false);
+			GlassFrame.getInstance().getSnapGlassPane().setRect(null);
+			GlassFrame.getInstance().dispose();
 			SplashScreen.getSingleton().getMainFrame().setIsDrawingAlready(false);
-			SplashScreen.getSingleton().getMainFrame().getNRFrame().getSnapGlassPane().repaint();
+			GlassFrame.getInstance().getSnapGlassPane().repaint();
 		}
 	}
 }

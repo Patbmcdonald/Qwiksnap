@@ -27,6 +27,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.qksnap.www.snap.gui.GlassFrame;
 import com.qksnap.www.snap.gui.SplashScreen;
 
 public class MainPane extends JPanel{
@@ -38,30 +39,38 @@ public class MainPane extends JPanel{
 	private JButton caBtn;
 	private JButton saBtn;
 	private JButton daBtn;
+	
 	protected void paintComponent(Graphics g) {
+	
 		g.drawImage(img, 0, 0, null);
 		g.drawImage(capimg,75,15,null);
+		
 		long start = System.currentTimeMillis();
+		
 		try {
               // Delay depending on how far behind current time we are.
               start += (1000/30);
               Thread.sleep(Math.max(0, start - System.currentTimeMillis()));
-          } catch(Exception e){
+         
+		} catch(Exception e){
         	  e.printStackTrace();
-          }
+        }
 	}
+	
 	public MainPane(){
 		try {
-			img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/mpbg.png"));
-			capimg = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/capturetxt.png"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+				img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/mpbg.png"));
+				capimg = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/capturetxt.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	
 		repaint();
 		setLayout(null);
 		Label = new JLabel("<html><u>"+SplashScreen.getSingleton().getUserSettings().getSnapHK()+" - Area Screen Snap</u></html>");
 		Label2 = new JLabel("<html><u>"+SplashScreen.getSingleton().getUserSettings().getSelHK()+" - Area Selection for future Screen Snap</u></html>");
 		Label3 = new JLabel("<html><u>"+SplashScreen.getSingleton().getUserSettings().getSelsnapHK()+" - Free-Form Selection and Screen Snap</u></html>");
+		
 		caBtn = new JButton(new ImageIcon(getClass().getResource("/cuareabtn.png")));
 		caBtn.setContentAreaFilled(false);
 		caBtn.setBorderPainted(false);
@@ -78,21 +87,23 @@ public class MainPane extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(!SplashScreen.getSingleton().getMainFrame().isDrawingAlready())
 					SplashScreen.getSingleton().getMainFrame().setState(SplashScreen.getSingleton().getMainFrame().ICONIFIED);
-					SplashScreen.getSingleton().getMainFrame().nrF.setUpWindow(false);
-					SplashScreen.getSingleton().getMainFrame().nrF.setVisible(true);
+					GlassFrame.getInstance().setUpWindow(false);
+					GlassFrame.getInstance().setVisible(true);
 					SplashScreen.getSingleton().getMainFrame().setIsDrawingAlready(true);
 			}
 
 		});
 	
 		caBtn.setBounds(240, 40, 73, 88);
-		 final String html2 =
+		
+		final String html2 =
 	                "<html><body>" +
 	                "<p><b>Select Pre-Defined Screenshot</b>:<br>" +
 	                "<b>This feature is used for rapid screenshot snapping. You do not need to define a screenshot region<br>"+
 	                "<b>as it is pre-defined using the Pre-Defined Select Area button.<br>" +
 	                "Usage: Are you not moving your screenshot region?<br>" +
 	                "Save time and use the pre-defined region tool to take screenshots of pre-defined areas selected by you!";
+		
 		saBtn = new JButton(new ImageIcon(getClass().getResource("/selwinbtn.png")));
 		saBtn.setContentAreaFilled(false);
 		saBtn.setBorderPainted(false);

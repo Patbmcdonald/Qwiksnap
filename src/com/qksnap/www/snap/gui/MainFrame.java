@@ -103,8 +103,6 @@ public class MainFrame extends JFrame implements ClipboardOwner {
 	private JFrame frame;
 	/** Our Tray icon **/
 	private TrayIcon trayIcon;
-	/** Frame of the selection **/
-	public NRFrame nrF = new NRFrame();
 	private boolean isDrawingAlready;
 	/** our Hotkey Listener **/
 	private HotKeyListener[] listener = new HotKeyListener[3];
@@ -116,10 +114,7 @@ public class MainFrame extends JFrame implements ClipboardOwner {
 	/**
 	 * Create the System Tray Icon and menu
 	 */
-	
-	public NRFrame getNRFrame(){
-		return nrF;
-	}
+
 	public void createTray() {
 
 		if (!SystemTray.isSupported()) {
@@ -396,8 +391,8 @@ public class MainFrame extends JFrame implements ClipboardOwner {
 		listener[1] = new HotKeyListener() {
 			public void onHotKey(final HotKey hotKey) {
 				if (!isDrawingAlready()) {
-					nrF.setUpWindow(false);
-					nrF.setVisible(true);
+					GlassFrame.getInstance().setUpWindow(false);
+					GlassFrame.getInstance().setVisible(true);
 					setIsDrawingAlready(true);
 				}
 			}
@@ -422,8 +417,8 @@ public class MainFrame extends JFrame implements ClipboardOwner {
 	
 	public void snapscreenshot(){
 		setImg(convertImg(robot.createScreenCapture(screenRectangle)));
-		nrF.setUpWindow(true);
-		nrF.setVisible(true);
+		GlassFrame.getInstance().setUpWindow(true);
+		GlassFrame.getInstance().setVisible(true);
 	}
 	
 	public void screenshot() {
